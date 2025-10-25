@@ -1,13 +1,18 @@
 import { ActionRowBuilder, ButtonBuilder, EmbedBuilder, MessageFlags, StringSelectMenuBuilder, StringSelectMenuOptionBuilder, TextChannel } from "discord.js";
 import StaticMessage from "../classes/static_messages";
 import Ticket from "../handlers/ticket_handler";
+import env from "../utils/config";
 
 export default new StaticMessage({
   name: 'TICKET-OPENER',
   customIds: ['open-ticket'],
   setup: async (logger, client) => {
-    const channelId = '1330192103246139514'; // Replace with your channel ID
-    const channel = await client.channels.fetch(channelId) as TextChannel | null;
+    if (!env.TICKET_OPENER_CHANNEL_ID) {
+      logger.warn('TICKET_OPENER_CHANNEL_ID not set in .env file. Skipping ticket opener setup.');
+      return;
+    }
+
+    const channel = await client.channels.fetch(env.TICKET_OPENER_CHANNEL_ID) as TextChannel | null;
 
     if (!channel || !channel.isTextBased()) {
       logger.error('Channel not found or is not a text-based channel.');

@@ -8,6 +8,11 @@ const fields = {
   DISCORD_BOT_TOKEN: process.env.DISCORD_BOT_TOKEN,
   MAIN_GUILD_ID: process.env.MAIN_GUILD_ID,
 
+  // Ticket System
+  TICKET_OPENER_CHANNEL_ID: process.env.TICKET_OPENER_CHANNEL_ID,
+  TRANSCRIPT_CHANNEL_ID: process.env.TRANSCRIPT_CHANNEL_ID,
+  STAFF_ROLE_IDS: process.env.STAFF_ROLE_IDS || process.env.STAFF_ROLE_ID,
+
   // SQLite setup
   SQLITE_PATH: process.env.SQLITE_PATH,
 
@@ -25,6 +30,9 @@ const fields = {
 interface Config extends DBConnectionDetails {
   DISCORD_BOT_TOKEN: string;
   MAIN_GUILD_ID: string;
+  TICKET_OPENER_CHANNEL_ID: string | undefined;
+  TRANSCRIPT_CHANNEL_ID: string | undefined;
+  STAFF_ROLE_IDS: string[];
   TEBEX_SECRET: string | false
 };
 
@@ -39,6 +47,9 @@ if (!fields.MAIN_GUILD_ID) {
 const env: Config = {
   DISCORD_BOT_TOKEN: fields.DISCORD_BOT_TOKEN,
   MAIN_GUILD_ID: fields.MAIN_GUILD_ID,
+  TICKET_OPENER_CHANNEL_ID: fields.TICKET_OPENER_CHANNEL_ID,
+  TRANSCRIPT_CHANNEL_ID: fields.TRANSCRIPT_CHANNEL_ID,
+  STAFF_ROLE_IDS: fields.STAFF_ROLE_IDS ? fields.STAFF_ROLE_IDS.split(',').map(id => id.trim()) : [],
   SQLITE_PATH: fields.SQLITE_PATH,
   SQL_HOST: fields.SQL_HOST,
   SQL_PORT: fields.SQL_PORT,

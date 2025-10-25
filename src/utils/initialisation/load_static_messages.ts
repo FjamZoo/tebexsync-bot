@@ -1,5 +1,5 @@
 import { DiscordClient } from '../../types';
-import { AnySelectMenuInteraction, ButtonInteraction } from 'discord.js';
+import { AnySelectMenuInteraction, ButtonInteraction, Events } from 'discord.js';
 import static_messages from '../../static_messages';
 
 import Logger from '../logger';
@@ -39,7 +39,7 @@ export default (client: DiscordClient) => {
     });
   }
 
-  client.once('ready', async () => {
+  client.once(Events.ClientReady, async () => {
     await initialiseStaticMessage(client);
   });
 };

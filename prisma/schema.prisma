@@ -73,7 +73,7 @@ model TicketCategories {
   name          String              @unique
   description   String?
   emoji         String?
-  categoryId    String              @unique @map("category_id")
+  categoryId    String              @map("category_id")
   requireTbxId  Int                 @default(1) @map("require_tbxid")
   fields        TicketCategoryFields[]
   tickets       Tickets[]
@@ -100,6 +100,7 @@ model Tickets {
   category        Int
   ticketName      String      @map("ticket_name")
   channelId       String      @map("channel_id")
+  staffThreadId   String?     @map("staff_thread_id")
   userId          String      @map("user_id")
   userUsername    String      @map("user_username")
   userDisplayName String      @map("user_display_name")

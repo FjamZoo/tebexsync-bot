@@ -1,4 +1,5 @@
 import { DiscordClient } from "@types";
+import { Events } from "discord.js";
 import Logger from "../utils/logger";
 import env from "../utils/config";
 import SettingsManager from "../handlers/settings_handler";
@@ -23,7 +24,7 @@ class PurchaseManager {
   public static setDiscordClient(client: DiscordClient) {
     this.discordClient = client;
 
-    client.once('ready', () => {
+    client.once(Events.ClientReady, () => {
       this.clientReady = true;
       logger.info('Discord client is ready (post-init)');
     });
